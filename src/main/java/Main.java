@@ -14,11 +14,8 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 public class Main {
 
-    private int windowH = 600;
-    private int windowW = 800;
 
-    Square square = new Square();
-    square.
+    Square square = new Square(new Vector2f(10, 10), new Vector2f(100, 100), new Vector2f(10, 5));
 
     private long window;
 
@@ -37,7 +34,7 @@ public class Main {
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 
-        window = glfwCreateWindow(windowW, windowH, "LWJGL Window", NULL, NULL);
+        window = glfwCreateWindow(GameProperties.windowW, GameProperties.windowH, "LWJGL Window", NULL, NULL);
         if (window == NULL) {
             throw new RuntimeException("Failed to create GLFW window");
         }
@@ -59,7 +56,8 @@ public class Main {
         while (!glfwWindowShouldClose(window)) {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
+            square.Update();
+            square.Draw();
 
 
             glfwSwapBuffers(window);
