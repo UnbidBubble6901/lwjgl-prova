@@ -1,0 +1,44 @@
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.iml
+
+# IntelliJ
+.idea/
+out/
+bin/
+
+# VS Code
+.vscode/
+
+# Build tools
+.gradle/
+build/
+target/
+mvnw*
+/mvn/
+*.lock
+
+# LWJGL
+libs/
+natives/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temp files
+*.tmp
+*.swp
+*.swo
+*~
+*.bak
+
+# Environment
+*.env
+.env.*
