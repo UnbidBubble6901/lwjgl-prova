@@ -12,12 +12,15 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
+@SuppressWarnings("unused")
+
 public class Main {
 
 
-    Square square = new Square(new Vector2f(10, 10), new Vector2f(100, 100), new Vector2f(10, 5));
+    Paddle player1 = new Paddle(new Vector2f(10, GameProperties.windowH / 2 - 50), new Vector2f(10, 100), 5, 1);
+    Paddle player2 = new Paddle(new Vector2f(GameProperties.windowW - 20, GameProperties.windowH / 2 - 50), new Vector2f(10, 100), 5, 2);
+    Ball ball = new Ball(new Vector2f(GameProperties.windowW / 2, GameProperties.windowH / 2), 10, new Vector2f(10, 5));
 
-    private long window;
 
     public void run() {
         init();
@@ -34,14 +37,14 @@ public class Main {
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 
-        window = glfwCreateWindow(GameProperties.windowW, GameProperties.windowH, "LWJGL Window", NULL, NULL);
-        if (window == NULL) {
+        GameProperties.window = glfwCreateWindow(GameProperties.windowW, GameProperties.windowH, "LWJGL Window", NULL, NULL);
+        if (GameProperties.window == NULL) {
             throw new RuntimeException("Failed to create GLFW window");
         }
 
-        glfwMakeContextCurrent(window);
+        glfwMakeContextCurrent(GameProperties.window);
         glfwSwapInterval(1);
-        glfwShowWindow(window);
+        glfwShowWindow(GameProperties.window);
 
         GL.createCapabilities();
 
@@ -53,20 +56,24 @@ public class Main {
     }
 
     private void loop() {
-        while (!glfwWindowShouldClose(window)) {
+        while (!glfwWindowShouldClose(GameProperties.window)) {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            square.Update();
-            square.Draw();
+            ball.Update();
+            player1.Update();
+            player2.Update();
+            ball.Draw();
+            player1.Draw();
+            player2.Draw();
 
 
-            glfwSwapBuffers(window);
+            glfwSwapBuffers(GameProperties.window);
             glfwPollEvents();
         }
     }
 
     private void cleanup() {
-        glfwDestroyWindow(window);
+        glfwDestroyWindow(GameProperties.window);
         glfwTerminate();
     }
 

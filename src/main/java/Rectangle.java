@@ -3,20 +3,20 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-public class Square {
+@SuppressWarnings("unused")
+
+public class Rectangle {
 
     public int windowH = GameProperties.windowH;
     public int windowW = GameProperties.windowW;
 
     public Vector2f pos = new Vector2f();
     public Vector2f size = new Vector2f();
-    public Vector2f vel = new Vector2f();
 
-    public Square(Vector2f _pos, Vector2f _size, Vector2f _vel){
+    public Rectangle(Vector2f pos, Vector2f size){
 
-        pos = _pos;
-        size = _size;
-        vel = _vel;
+        this.pos = pos;
+        this.size = size;
 
     }
 
@@ -32,16 +32,5 @@ public class Square {
 
     }
 
-    public void Update(){
 
-        if(pos.x + size.x >= windowW || pos.x <= 0){
-            vel.x *= -1;
-        }
-        if(pos.y + size.y >= windowH || pos.y <= 0){
-            vel.y *= -1;
-        }
-
-        pos.x += vel.x;
-        pos.y += vel.y;
-    }
 }
